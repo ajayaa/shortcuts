@@ -1,0 +1,5 @@
+Vim plugins and vimrc
+aliases
+tmux conf
+jq
+install git
