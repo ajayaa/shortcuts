@@ -1,0 +1,15 @@
+It's better to list out the files to index first and then use
+-L option with ctags.
+
+e.g:
+
+find . -name "*.py" > list
+ctags -L list
+
+:ts gives you list of tags.
+:tn to next tag.
+:tp to previous tag
+:tf to first tag
+:tl to last tag
+:tag function_name will take you to tag's definition.
+opposite of <C-]> is <C-t>

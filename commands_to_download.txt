@@ -1,0 +1,19 @@
+youtube-dl -citw ytuser:<USER>
+
+To download an entire channel
+
+youtube-dl -citw ytuser:<USER>
+To download all videos on a playlist
+
+youtube-dl -citw <PLAYLIST URL>
+
+
+https://www.youtube.com/user/VishAcademy/videos
+https://www.youtube.com/channel/UCye0TMXdb_zdfvVgXA0XtkA/videos
+
+playlist:
+https://www.youtube.com/watch?v=oJlKos0gePQ&list=PLVDYxb1dYhnqUn0_liNeONyicF1Y3ajLp
+
+url:
+https://www.youtube.com/watch?v=e6VYRVRoC40
+https://www.youtube.com/watch?v=mKt-MDwtVB4
