@@ -1,0 +1,31 @@
+#create two webservers.
+while true; do echo -e 'HTTP/1.0 200 OK\r\n\r\nweb_server1' | sudo nc -l -p 80 ; done  &
+
+while true; do echo -e 'HTTP/1.0 200 OK\r\n\r\nweb_server2' | sudo nc -l -p 80 ; done &
+
+#create a pool
+ 
+neutron lb-pool-create --lb-method ROUND_ROBIN --name mypool --protocol HTTP --subnet-id 72569ff7-d58a-49a8-a3f1-f755a417db17
+
+#add a member to it
+
+neutron  lb-member-create --address  10.0.0.2 --protocol-port 80 mypool
+neutron  lb-member-create --address  10.0.0.4 --protocol-port 80 mypool
+
+#create a health monitor.
+
+neutron  lb-healthmonitor-create --delay 3 --type HTTP --max-retries 3 --timeout 3
+
+# associate healthmonitor to pool
+
+neutron lb-healthmonitor-associate d0626fd7-3a13-4665-b690-a741303ed3fc mypool
+
+#create a vip
+
+neutron   lb-vip-create --name myvip --protocol-port 80 --protocol HTTP --subnet-id  72569ff7-d58a-49a8-a3f1-f755a417db17 mypool
+
+
+
+
+
+

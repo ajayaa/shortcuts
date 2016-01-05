@@ -1,0 +1,38 @@
+Commands used in this video:
+#show ovs current config summary
+ovs-vsctl show
+
+#add a bridge
+ovs-vsctl add-br mybridge 
+
+#turn up mybridge interface
+ifconfig mybridge up
+
+#add eth0
+ovs-vsctl add-port eth0 mybridge
+
+#remove eth0's IP addressing
+ifconfig eth0 0
+
+#make mybridge interface get a DHCP IP
+dhclient mybridge
+
+#add tap interfaces
+ip tuntap add mode tap vport1
+ip tuntap add mode tap vport 2
+
+#add tap interfaces to mybridge
+ovs-vsctl add-port mybridge vport1 -- add-port mybridge vport2
+
+#view forwarding table (mac address table)
+ovs-appctl fdb/show
+
+#see mapping of OpenFlow ports to system ports
+ovs-ofctl show mybridge
+
+#see flow entries (OpenFlow) on mybridge
+ovs-ofctl dump-flows mybridge
+#see records in ovsdb-server tables
+ovs-vsctl list Bridge
+ovs-vsctl list Port
+ovs-vsctl list Interface

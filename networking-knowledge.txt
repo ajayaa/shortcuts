@@ -1,0 +1,69 @@
+dnsmasq:
+tap device: virtual nic -- first end of cable
+second end we can connect to anything.
+User wants to connect second it a specific network x
+Nova compute sends a call to neutron to create port.
+Neutron creates port(Allocates mac address and IP)
+Notifies DHCP agent 
+Then neutron notifies L2 agent in nova compute
+
+
+
+iproute2 is a set of tools to communicate between kernel space and user space using the netlink protocol.
+========================================================
+ifconfig --> ip addr and ip link
+route --> ip route
+arp --> ip neigh
+iptunnel --> ip tunnel
+ipmaddr --> ip maddr
+netstat --> ss
+
+
+If you need an additional IP address just for the moment you can add it to any interface on your machine with
+
+ sudo ip address add <ip-address>/<netmask> dev <interface>
+for instance
+
+ sudo ip address add 172.16.100.17/24 dev eth0
+would add 172.16.100.17 using a 24bit netmask to the list of addresses configured for your eth0.
+
+
+
+
+In the backend:
+open vswitch
+you physical network
+vendor switches
+
+
+Nova network:
+
+only flat + flat dhcp + vlan based network
+vlan has 4096 limit on number of hosts
+
+Neutron Architecture:
+=====================
+
+nova networking refresher: Bring deprecated. Multi-host mode in nova-network. No migration story of nova-n to neutron.
+
+multi-host mode:
+================
+different layer 3 do go to nova-n. Can be a choke point. In multi host mode nova networking is installed on every compute node. All the compute need external ip addressed to do the natting. 
+
+Distributed virtual router in juno neutron.
+
+Set of defined apis in neutron. Define a network. Depending on the plugin the apis are matched to implementation.
+
+Core plugin and service plugin. Core plugin does basic L3 networking. Service plugin provides special functions.
+
+L3 router is a service plugin.
+
+ML2 plugin:
+Does database access. 
+Type manager: manages id of vxlan, gre
+Mechanism manager: ovs, cisco, arista etc.
+
+modular plugin vs monolithic plugin:
+Earlier ovs-plugin and linux bridge plugin were monolithic. Now ml2 plugin uses those.
+L3 agent is a choke point if you use ovs and linux bridges.
+
